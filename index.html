@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fetch Name</title>
+</head>
+<body>
+  <h1>Fetch Name</h1>
+  <form id="fetchForm">
+    <label for="rowInput">Enter Row Number:</label>
+    <input type="number" id="rowInput" name="row" min="1">
+    <button type="submit">Fetch Name</button>
+  </form>
+  <div id="nameResult"></div>
+  <script>
+    document.getElementById('fetchForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const row = document.getElementById('rowInput').value;
+      fetch(`/names/${row}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Name not found');
+          }
+          return response.text();
+        })
+        .then(name => {
+          document.getElementById('nameResult').textContent = `Name: ${name}`;
+        })
+        .catch(error => {
+          document.getElementById('nameResult').textContent = `Error: ${error.message}`;
+        });
+    });
+  </script>
+</body>
+</html>
