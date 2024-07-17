@@ -11,8 +11,8 @@ const port = 5019;
 app.use(bodyParser.json());
 app.use(cors());
 
-// Serve static files from the "public" directory
-app.use(express.static(path.join(__dirname, 'public')));
+// Serve static files (assuming index.html is directly in the root directory)
+app.use(express.static(__dirname));
 
 // PostgreSQL database connection pool
 const pool = new Pool({
@@ -23,7 +23,6 @@ const pool = new Pool({
     port: 5433,
 });
 
-// API endpoint to fetch name by id (assuming Name is the identifier)
 // API endpoint to fetch name by row number
 app.get('/names/:row', async (req, res) => {
   const { row } = req.params;
@@ -43,9 +42,9 @@ app.get('/names/:row', async (req, res) => {
   }
 });
 
-// Serve HTML file
+// Serve index.html
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Start server
