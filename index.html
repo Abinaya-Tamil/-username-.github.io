@@ -20,17 +20,20 @@
       fetch(`http://localhost:5019/names/${row}`)
         .then(response => {
           if (!response.ok) {
-            throw new Error('Name not found');
+            throw new Error('Failed to fetch');
           }
           return response.text();
         })
         .then(name => {
+          console.log('Name fetched:', name);
           document.getElementById('nameResult').textContent = `Name: ${name}`;
         })
         .catch(error => {
+          console.error('Fetch error:', error);
           document.getElementById('nameResult').textContent = `Error: ${error.message}`;
         });
     });
   </script>
 </body>
 </html>
+
