@@ -17,7 +17,7 @@
     document.getElementById('fetchForm').addEventListener('submit', function(event) {
       event.preventDefault();
       const row = document.getElementById('rowInput').value;
-      fetch(`ttp://localhost:5019/names/${row}`)
+      fetch(`http://localhost:5019/names/${row}`)
         .then(response => {
           if (!response.ok) {
             throw new Error('Name not found');
